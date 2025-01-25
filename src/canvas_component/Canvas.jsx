@@ -5,7 +5,7 @@ import {
   Environment,
   useTexture,
 } from "@react-three/drei";
-import ElevatorCar from "../ElevatorCar";
+import ElevRoom from "../Elev_room";
 import Room from "../components/Room/Room";
 import "../App.css";
 
@@ -22,10 +22,10 @@ function CanvasContainer() {
           minDistance={6}
           maxDistance={15}
           target={[0, 1.5, 0]}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 2}
-          minAzimuthAngle={-Math.PI / 4}
-          maxAzimuthAngle={Math.PI / 4}
+          // minPolarAngle={Math.PI / 3}
+          // maxPolarAngle={Math.PI / 2}
+          // minAzimuthAngle={-Math.PI / 4}
+          // maxAzimuthAngle={Math.PI / 4}
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
@@ -47,14 +47,9 @@ function CanvasContainer() {
         <Room />
 
         {/* Position elevator to fit perfectly in the back wall */}
-        <ElevatorCar
-          position={[8.1, -5.1, 3.45]} // Adjusted Z slightly to remove gap
-          rotation={[0, Math.PI, 0]}
-          scale={[1.02, 1.4, 1]} // Slightly wider to cover gaps
-          wallColor="#e8e8e8"
-          floorColor="#1a1a1a"
-          doorColor="#d4d4d4"
-        />
+        <group position={[2, 0, 6.3]}>
+          <ElevRoom />
+        </group>
       </Canvas>
     </div>
   );

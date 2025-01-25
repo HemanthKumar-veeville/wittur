@@ -1,34 +1,26 @@
 import React, { useMemo } from "react";
 import * as THREE from "three";
+import { useLoader } from "@react-three/fiber";
+import floorTextureImg from "../../assets/textures/wood_tiles.jpg";
+import wallTextureImg from "../../assets/textures/steel.jpg";
 
 function Room() {
-  // Add this custom shader material for the checkerboard pattern
-  const floorMaterial = (
-    <shaderMaterial
-      fragmentShader={`
-        varying vec2 vUv;
-        
-        void main() {
-          float size = 16.0; // Increased size value for even smaller tiles
-          vec2 pos = floor(vUv * size);
-          float pattern = mod(pos.x + pos.y, 2.0);
-          
-          vec3 color1 = vec3(0.824, 0.769, 0.710); // Light beige #d2c4b5
-          vec3 color2 = vec3(0.686, 0.631, 0.573); // Darker beige #afa193
-          
-          gl_FragColor = vec4(mix(color1, color2, pattern), 1.0);
-        }
-      `}
-      vertexShader={`
-        varying vec2 vUv;
-        
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `}
-    />
-  );
+  // Load the floor texture
+  const floorTexture = useLoader(THREE.TextureLoader, floorTextureImg);
+  const wallTexture = useLoader(THREE.TextureLoader, wallTextureImg);
+
+  // Configure the textures
+  const floorMaterial = useMemo(() => {
+    floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+    floorTexture.repeat.set(8, 6); // Adjust these values to control the texture repeat
+    return (
+      <meshStandardMaterial
+        map={floorTexture}
+        roughness={0.8}
+        metalness={0.2}
+      />
+    );
+  }, [floorTexture]);
 
   // Create wall materials using useMemo to prevent recreation on each render
   const { regularWallMaterial } = useMemo(() => {
@@ -86,7 +78,7 @@ function Room() {
 
   return (
     <group position={[0, 0, 6]}>
-      {/* Floor with checkered pattern */}
+      {/* Floor with texture */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
         <planeGeometry args={[30, 20]} />
         {floorMaterial}
@@ -116,7 +108,11 @@ function Room() {
         {/* Back Wall with elevator opening as a single mesh */}
         <mesh position={[0, 4, -6]}>
           <planeGeometry args={[16, 8]} />
-          <primitive object={regularWallMaterial} />
+          <meshStandardMaterial
+            color="#BDE6A8" // Pista green color
+            roughness={0.5}
+            metalness={0.1}
+          />
         </mesh>
 
         {/* Back Wall elevator frame */}
@@ -124,20 +120,28 @@ function Room() {
           {/* Left section */}
           <mesh position={[-4.5, 0, 0]}>
             <boxGeometry args={[7, 8, 0.1]} />
-            <primitive object={regularWallMaterial} />
+            <meshStandardMaterial
+              color="#BDE6A8" // Pista green color
+              roughness={0.5}
+              metalness={0.1}
+            />
           </mesh>
 
           {/* Right section */}
           <mesh position={[4.5, 0, 0]}>
             <boxGeometry args={[7, 8, 0.1]} />
-            <primitive object={regularWallMaterial} />
+            <meshStandardMaterial
+              color="#BDE6A8" // Pista green color
+              roughness={0.5}
+              metalness={0.1}
+            />
           </mesh>
 
-          {/* Top section
+          {/* Top section commented out */}
           <mesh position={[0, 2.5, 0]}>
             <boxGeometry args={[2, 3, 0.1]} />
             <primitive object={regularWallMaterial} />
-          </mesh> */}
+          </mesh>
         </group>
 
         {/* Ceiling */}
