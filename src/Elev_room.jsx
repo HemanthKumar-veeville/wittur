@@ -85,40 +85,94 @@ function ElevRoom(props) {
     materials,
   ]);
 
-  // State to track door positions
+  // State to track door positions and animation state
   const [leftDoorPos1, setLeftDoorPos1] = useState(0);
   const [rightDoorPos1, setRightDoorPos1] = useState(0);
   const [leftDoorPos2, setLeftDoorPos2] = useState(0);
   const [rightDoorPos2, setRightDoorPos2] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Animation parameters
-  const doorOpenAmount = 1.2; // How far the doors should open
-  const animationSpeed = 0.05;
+  const leftDoorInitialPos1 = 65.821; // Initial position of left door 1
+  const rightDoorInitialPos1 = -83.479; // Initial position of right door 1
+  const doorGap = 0.1; // Small gap between doors when closed
+  const animationSpeed = 0.015; // Reduced speed for smoother movement
+  const openDistance = 0.75; // How far each door should move when fully open
+
+  // Calculate the door movements
+  const maxLeftTravel = -openDistance; // Left door moves left (negative)
+  const maxRightTravel = openDistance; // Right door moves right (positive)
+
+  // Function to toggle doors
+  const toggleDoors = () => {
+    if (!isAnimating) {
+      setIsOpen(!isOpen);
+      setIsAnimating(true);
+    }
+  };
 
   // Handle door animation
   useFrame(() => {
+    if (!isAnimating) return;
+
     if (isOpen) {
-      // Both lifts - Opening animation (doors slide away from center)
-      setLeftDoorPos1(Math.min(leftDoorPos1 - animationSpeed, -doorOpenAmount));
-      setRightDoorPos1(
-        Math.min(rightDoorPos1 + animationSpeed, doorOpenAmount)
-      );
-      setLeftDoorPos2(Math.min(leftDoorPos2 - animationSpeed, -doorOpenAmount));
-      setRightDoorPos2(
-        Math.min(rightDoorPos2 + animationSpeed, doorOpenAmount)
-      );
+      // Opening animation - move doors to maximum open positions
+      const leftDone = leftDoorPos1 <= maxLeftTravel;
+      const rightDone = rightDoorPos1 >= maxRightTravel;
+
+      if (!leftDone) {
+        setLeftDoorPos1(Math.max(leftDoorPos1 - animationSpeed, maxLeftTravel));
+        setLeftDoorPos2(Math.max(leftDoorPos2 - animationSpeed, maxLeftTravel));
+      }
+
+      if (!rightDone) {
+        setRightDoorPos1(
+          Math.min(rightDoorPos1 + animationSpeed, maxRightTravel)
+        );
+        setRightDoorPos2(
+          Math.min(rightDoorPos2 + animationSpeed, maxRightTravel)
+        );
+      }
+
+      // Animation is complete when both doors reach their maximum positions
+      if (leftDone && rightDone) {
+        setIsAnimating(false);
+      }
     } else {
-      // Both lifts - Closing animation (doors slide towards center)
-      setLeftDoorPos1(Math.max(leftDoorPos1 + animationSpeed, 0));
-      setRightDoorPos1(Math.max(rightDoorPos1 - animationSpeed, 0));
-      setLeftDoorPos2(Math.max(leftDoorPos2 + animationSpeed, 0));
-      setRightDoorPos2(Math.max(rightDoorPos2 - animationSpeed, 0));
+      // Closing animation - move doors back to initial positions
+      const leftDone = leftDoorPos1 >= 0;
+      const rightDone = rightDoorPos1 <= 0;
+
+      if (!leftDone) {
+        setLeftDoorPos1(Math.min(leftDoorPos1 + animationSpeed, 0));
+        setLeftDoorPos2(Math.min(leftDoorPos2 + animationSpeed, 0));
+      }
+
+      if (!rightDone) {
+        setRightDoorPos1(Math.max(rightDoorPos1 - animationSpeed, 0));
+        setRightDoorPos2(Math.max(rightDoorPos2 - animationSpeed, 0));
+      }
+
+      // Animation is complete when both doors return to their initial positions
+      if (leftDone && rightDone) {
+        setIsAnimating(false);
+      }
     }
   });
 
+  // Add keyboard controls
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === "o") toggleDoors(); // Press 'o' to toggle doors
+    };
+
+    window.addEventListener("keypress", handleKeyPress);
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, [isOpen, isAnimating]);
+
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} onClick={toggleDoors}>
       <group name="Scene">
         <group
           name="Null"
@@ -130,13 +184,17 @@ function ElevRoom(props) {
             name="L"
             geometry={nodes.L.geometry}
             material={materials["01"]}
-            position={[65.821 + leftDoorPos1 * 100, -1.135, 1.92]}
+            position={[leftDoorInitialPos1 + leftDoorPos1 * 100, -1.135, 1.92]}
           />
           <mesh
             name="R"
             geometry={nodes.R.geometry}
             material={materials["01"]}
-            position={[-83.479 + rightDoorPos1 * 100, -1.135, 1.92]}
+            position={[
+              rightDoorInitialPos1 + rightDoorPos1 * 100,
+              -1.135,
+              1.92,
+            ]}
           />
           <mesh
             name="BASE"
@@ -161,13 +219,17 @@ function ElevRoom(props) {
             name="L_2"
             geometry={nodes.L_2.geometry}
             material={materials["01"]}
-            position={[65.821 + leftDoorPos2 * 100, -1.135, 1.92]}
+            position={[leftDoorInitialPos1 + leftDoorPos2 * 100, -1.135, 1.92]}
           />
           <mesh
             name="R_2"
             geometry={nodes.R_2.geometry}
             material={materials["01"]}
-            position={[-83.479 + rightDoorPos2 * 100, -1.135, 1.92]}
+            position={[
+              rightDoorInitialPos1 + rightDoorPos2 * 100,
+              -1.135,
+              1.92,
+            ]}
           />
         </group>
         <mesh

@@ -22,10 +22,10 @@ function CanvasContainer() {
           minDistance={6}
           maxDistance={15}
           target={[0, 1.5, 0]}
-          // minPolarAngle={Math.PI / 3}
-          // maxPolarAngle={Math.PI / 2}
-          // minAzimuthAngle={-Math.PI / 4}
-          // maxAzimuthAngle={Math.PI / 4}
+          minPolarAngle={Math.PI / 3}
+          maxPolarAngle={Math.PI / 2}
+          minAzimuthAngle={-Math.PI / 4}
+          maxAzimuthAngle={Math.PI / 4}
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
