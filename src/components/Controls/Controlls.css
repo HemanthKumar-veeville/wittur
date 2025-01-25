@@ -90,7 +90,7 @@
 /* Container for the action buttons */
 .action-buttons-container {
     display: flex;
-    gap: 20px;
+    gap: 15px; /* Reduced gap between buttons */
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -108,17 +108,17 @@
     background-color: #ff7a00; /* Orange color */
     color: #fff; /* White text color */
     border: none;
-    border-radius: 20px 0 0 20px; /* Rounded left side */
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
+    border-radius: 15px 0 0 15px; /* Adjusted corner radius */
+    padding: 8px 16px; /* Reduced padding for a smaller look */
+    font-size: 12px; /* Reduced font size */
+    font-weight: 400;
     text-transform: uppercase;
     cursor: pointer;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    height: 50px; /* Fixed height to ensure both buttons match */
-    width: 160px; /* Adjusted width to fit "DONE | GET INFO" in one line */
+    height: 40px; /* Reduced height */
+    width: 120px; /* Reduced width */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     white-space: nowrap; /* Ensure text stays in one line */
   }
@@ -129,22 +129,27 @@
   
   /* The circular icon part of the button */
   .icon-circle {
-    width: 60px;
-    height: 60px;
-    background-color: #ff7a00; /* Orange color */
+    width: 45px; /* Reduced size */
+    height: 45px; /* Reduced size */
+    background-color:#ff7a00; /* Orange color */
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: -20px; /* Overlap the button edge */
+    margin-left: -15px; /* Overlap the button edge */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
   }
+
+  .Done-icon{
+    background-color: rgb(35, 233, 35);
+    margin-left: -9px;
+  }
   
   /* Icon styles inside the circle */
   .button-icon {
-    font-size: 22px; /* Larger size for visibility */
+    font-size: 16px; /* Reduced size */
     color: #fff; /* White icon */
   }
   
@@ -152,24 +157,138 @@
   @media (max-width: 768px) {
     .action-buttons-container {
       flex-direction: column;
-      gap: 15px;
+      gap: 10px; /* Adjusted gap for smaller screens */
     }
   
     .action-button {
-      font-size: 12px;
-      padding: 8px 16px;
-      height: 45px;
-      width: 140px;
+      font-size: 10px; /* Further reduced font size */
+      padding: 6px 12px; /* Adjusted padding */
+      height: 35px; /* Further reduced height */
+      width: 100px; /* Further reduced width */
     }
   
     .icon-circle {
-      width: 50px;
-      height: 50px;
-      margin-left: -15px;
+      width: 35px; /* Further reduced size */
+      height: 35px; /* Further reduced size */
+      margin-left: -10px; /* Adjusted overlap */
     }
   
     .button-icon {
-      font-size: 18px;
+      font-size: 14px; /* Adjusted size */
+    }
+  }
+
+
+/* Center align the dropdown */
+.dropdown-container {
+    width: 250px; /* Button width */
+/* Center align */
+    position: relative;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Dropdown button styling */
+  .dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #e6f7f9;
+    border: 2px solid #00bcd4;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .dropdown-button:hover {
+    background-color: #d9f7ff;
+  }
+  
+  /* Active state styling for the button */
+  .dropdown-button.active {
+    background-color: #d9f7ff; /* Active background color */
+  }
+  
+  /* Label on the left side */
+  .dropdown-label {
+    font-size: 12px; /* Smaller font size */
+    font-weight: bold;
+    color: #00bcd4;
+    text-transform: uppercase;
+    flex: 1;
+  }
+  
+  /* Selected text in the center */
+  .dropdown-selected {
+    font-size: 12px;
+    color: #333;
+    flex: 2;
+    text-align: center;
+  }
+  
+  /* Dropdown icon on the right */
+  .dropdown-icon {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  /* Dropdown options container */
+  .dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 2px solid #00bcd4;
+    border-radius: 10px;
+    margin-top: 5px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  /* Individual dropdown option */
+  .dropdown-option {
+    padding: 10px 15px;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .dropdown-option:hover {
+    background-color: #d9f7ff;
+  }
+  
+  /* Selected option styling */
+  .dropdown-option.selected {
+    background-color: #e6f7f9;
+    font-weight: bold;
+    color: #00bcd4;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dropdown-container {
+      width: 90%; /* Adjusted for smaller screens */
+    }
+  
+    .dropdown-button {
+      padding: 8px 12px;
+    }
+  
+    .dropdown-label,
+    .dropdown-selected {
+      font-size: 10px;
+    }
+  
+    .dropdown-icon {
+      font-size: 12px;
+    }
+  
+    .dropdown-option {
+      padding: 8px 12px;
+      font-size: 10px;
     }
   }
   

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Controlls.css"
+import "./Controlls.css";
 import { FaCamera, FaCheck } from "react-icons/fa";
 
 const ActionButtons = () => {
@@ -15,12 +15,12 @@ const ActionButtons = () => {
         </div>
       </div>
 
-      {/* Done | Get Info Button */}
+      {/* Done | GET INFO Button */}
       <div className="key-button">
         <button className="action-button snapshot">
           <span className="button-text">DONE | GET INFO</span>
         </button>
-        <div className="icon-circle snapshot-icon">
+        <div className="icon-circle Done-icon">
           <FaCheck className="button-icon" />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import CollapsableDropDown from "./CollapsableDropDown";
 import ActionButtons from "./ActionButtons";
+import HeaderDropdown from "./HeaderDropdown";
 
 function Controls() {
 
@@ -13,6 +14,7 @@ function Controls() {
 
       <div className="controls-content">
         <div className="model-selector">
+          <HeaderDropdown />
           <label>CAR MODEL</label>
           <select defaultValue="Vesta">
             <option value="Vesta">Vesta</option>
@@ -23,18 +25,11 @@ function Controls() {
 
 
         <div className="control-sections">
+        
           <CollapsableDropDown />
-          <button className="control-section">ENTRANCES</button>
-          <button className="control-section">CAR WALL</button>
-          <button className="control-section">CEILING</button>
-          <button className="control-section">FLOOR</button>
-          <button className="control-section">MIRROR</button>
-          <button className="control-section">HANDRAILS</button>
-          <button className="control-section">C.O.P</button>
           <div className="controls-footer">
           <ActionButtons />
-          <button className="action-button snapshot">SNAPSHOT</button>
-          <button className="action-button done">DONE / GET INFO</button>
+         
         </div>
         </div>
 
