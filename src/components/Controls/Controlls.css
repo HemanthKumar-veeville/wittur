@@ -1,0 +1,198 @@
+/* Container for all dropdown buttons */
+.collapsable-dropdown-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0px;
+  }
+  
+  /* Wrapper for each dropdown */
+  .dropdown-wrapper {
+    position: relative;
+  }
+  
+  /* Dropdown button styling */
+  .dropdown-button {
+    width: 100%;
+    background-color: #e6f7f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .dropdown-button:hover {
+    background-color: #d9f7ff;
+  }
+  
+  /* Dropdown icon (right side) */
+  .dropdown-icon {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  /* Dropdown content */
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-item {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .collapsable-dropdown-container {
+      max-width: 100%;
+      padding: 10px;
+    }
+  
+    .dropdown-button {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  
+    .dropdown-content {
+      font-size: 12px;
+    }
+  }
+  
+
+
+  /* Container for the action buttons */
+/* Container for the action buttons */
+.action-buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Wrapper for the key-like button */
+  .key-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  /* Base styles for the rectangular part of the button */
+  .action-button {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 20px 0 0 20px; /* Rounded left side */
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* Fixed height to ensure both buttons match */
+    width: 140px; /* Fixed width to ensure both buttons match */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Snapshot Button Specific Styles */
+  .snapshot {
+    background-color: #ff7a00; /* Orange color */
+  }
+  
+  .snapshot:hover {
+    background-color: #e66a00;
+  }
+  
+  /* Done Button Specific Styles */
+  .done {
+    background-color: #4caf50; /* Green color */
+  }
+  
+  .done:hover {
+    background-color: #3b8f3e;
+  }
+  
+  /* The circular icon part of the button */
+  .icon-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #fff; /* White background for the circle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -20px; /* Overlap the button edge */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Snapshot Icon Circle Specific Styles */
+  .snapshot-icon {
+    background-color: #ff7a00; /* Orange color */
+  }
+  
+  /* Done Icon Circle Specific Styles */
+  .done-icon {
+    background-color: #4caf50; /* Green color */
+  }
+  
+  /* Icon styles inside the circle */
+  .button-icon {
+    font-size: 22px; /* Larger size for visibility */
+    color: #fff; /* White icon */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .action-buttons-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+  
+    .action-button {
+      font-size: 12px;
+      padding: 8px 16px;
+      height: 45px;
+      width: 130px;
+    }
+  
+    .icon-circle {
+      width: 50px;
+      height: 50px;
+      margin-left: -15px;
+    }
+  
+    .button-icon {
+      font-size: 18px;
+    }
+  }
+  

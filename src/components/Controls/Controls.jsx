@@ -1,6 +1,9 @@
 import React from "react";
+import CollapsableDropDown from "./CollapsableDropDown";
+import ActionButtons from "./ActionButtons";
 
 function Controls() {
+
   return (
     <div className="controls-sidebar">
       <div className="controls-header">
@@ -17,8 +20,10 @@ function Controls() {
           </select>
         </div>
 
+
+
         <div className="control-sections">
-          <button className="control-section">DIMENSIONS</button>
+          <CollapsableDropDown />
           <button className="control-section">ENTRANCES</button>
           <button className="control-section">CAR WALL</button>
           <button className="control-section">CEILING</button>
@@ -26,12 +31,15 @@ function Controls() {
           <button className="control-section">MIRROR</button>
           <button className="control-section">HANDRAILS</button>
           <button className="control-section">C.O.P</button>
-        </div>
-
-        <div className="controls-footer">
+          <div className="controls-footer">
+          <ActionButtons />
           <button className="action-button snapshot">SNAPSHOT</button>
           <button className="action-button done">DONE / GET INFO</button>
         </div>
+        </div>
+
+
+       
       </div>
     </div>
   );
