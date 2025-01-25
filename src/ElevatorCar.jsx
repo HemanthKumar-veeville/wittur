@@ -50,15 +50,12 @@ function Model(props) {
 
   return (
     <group {...props} dispose={null}>
-      {/* Adjusted base group position for proper wall alignment */}
-      <group position={[0, 1.05, 0]}>
-        {" "}
-        // Fine-tuned height
+      {/* Adjust base position for visibility */}
+      <group position={[0, 0, 0]}>
         {/* Frame components */}
         <mesh
           geometry={nodes.Node1.geometry}
           material={uniqueMaterials.frame}
-          scale={[1, 1.02, 1]} // Slight vertical stretch to fit opening
         />
         <mesh
           geometry={nodes.Node2.geometry}
