@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/configurator" element={<Configurator />} />
+          <Route path="/" element={<Configurator />} />
           <Route path="who-we-are" element={<WhoWeAre />} />
           <Route path="supplier-world" element={<SupplierWorld />} />
           <Route path="buyer-world" element={<BuyerWorld />} />
@@ -23,5 +23,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
+// configurator
 export default App;
