@@ -105,7 +105,7 @@
   
   /* Base styles for the rectangular part of the button */
   .action-button {
-    background-color: #333; /* Dark background color */
+    background-color: #ff7a00; /* Orange color */
     color: #fff; /* White text color */
     border: none;
     border-radius: 20px 0 0 20px; /* Rounded left side */
@@ -118,33 +118,20 @@
     justify-content: center;
     align-items: center;
     height: 50px; /* Fixed height to ensure both buttons match */
-    width: 140px; /* Fixed width to ensure both buttons match */
+    width: 160px; /* Adjusted width to fit "DONE | GET INFO" in one line */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap; /* Ensure text stays in one line */
   }
   
-  /* Snapshot Button Specific Styles */
-  .snapshot {
-    background-color: #ff7a00; /* Orange color */
-  }
-  
-  .snapshot:hover {
+  .action-button:hover {
     background-color: #e66a00;
-  }
-  
-  /* Done Button Specific Styles */
-  .done {
-    background-color: #4caf50; /* Green color */
-  }
-  
-  .done:hover {
-    background-color: #3b8f3e;
   }
   
   /* The circular icon part of the button */
   .icon-circle {
     width: 60px;
     height: 60px;
-    background-color: #fff; /* White background for the circle */
+    background-color: #ff7a00; /* Orange color */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -153,16 +140,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
     z-index: 1;
-  }
-  
-  /* Snapshot Icon Circle Specific Styles */
-  .snapshot-icon {
-    background-color: #ff7a00; /* Orange color */
-  }
-  
-  /* Done Icon Circle Specific Styles */
-  .done-icon {
-    background-color: #4caf50; /* Green color */
   }
   
   /* Icon styles inside the circle */
@@ -182,7 +159,7 @@
       font-size: 12px;
       padding: 8px 16px;
       height: 45px;
-      width: 130px;
+      width: 140px;
     }
   
     .icon-circle {

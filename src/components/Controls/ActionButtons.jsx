@@ -15,12 +15,12 @@ const ActionButtons = () => {
         </div>
       </div>
 
-      {/* Done | GET INFO Button */}
+      {/* Done | Get Info Button */}
       <div className="key-button">
-        <button className="action-button done">
+        <button className="action-button snapshot">
           <span className="button-text">DONE | GET INFO</span>
         </button>
-        <div className="icon-circle done-icon">
+        <div className="icon-circle snapshot-icon">
           <FaCheck className="button-icon" />
         </div>
       </div>
