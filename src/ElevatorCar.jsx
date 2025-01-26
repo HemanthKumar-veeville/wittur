@@ -7,7 +7,7 @@ import React, { useMemo, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useSpring, animated } from "@react-spring/three";
 import * as THREE from "three";
-import Elevator from "./assets/Elev.glb";
+import Elevator from "./assets/Modern_Elevator.glb";
 
 function Model(props) {
   const { nodes, materials } = useGLTF(Elevator);

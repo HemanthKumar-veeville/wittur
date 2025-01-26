@@ -8,13 +8,14 @@ import {
 import ElevRoom from "../Elev_room";
 import Room from "../components/Room/Room";
 import "../App.css";
+import ModernElevator from "../Modern_Elevator";
 
 function CanvasContainer() {
   return (
     <div id="canvas-container">
       <Canvas shadows>
         {/* Adjust camera to see elevator better */}
-        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={85} />
+        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={65} />
 
         <OrbitControls
           enableDamping
@@ -47,8 +48,8 @@ function CanvasContainer() {
         <Room />
 
         {/* Position elevator to fit perfectly in the back wall */}
-        <group position={[3.6, 0, 0.15]}>
-          <ElevRoom />
+        <group position={[0, 3.5, -3]} scale={[4.4, 4, 4]}>
+          <ModernElevator />
         </group>
       </Canvas>
     </div>
