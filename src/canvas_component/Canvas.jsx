@@ -60,10 +60,10 @@ const VIEW_CONFIGS = {
     controls: {
       minDistance: 5,
       maxDistance: 15,
-      minPolarAngle: 0,
-      maxPolarAngle: Math.PI / 2,
-      minAzimuthAngle: -Infinity,
-      maxAzimuthAngle: Infinity,
+      minPolarAngle: Math.PI / 2, // Set to PI/2 to prevent seeing above horizontal
+      maxPolarAngle: Math.PI / 2, // Set to PI/2 to prevent seeing below horizontal
+      minAzimuthAngle: -Math.PI / 6, // More restricted left rotation
+      maxAzimuthAngle: Math.PI / 6, // More restricted right rotation
     },
   },
 };
