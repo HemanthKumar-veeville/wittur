@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, useProgress } from "@react-three/drei";
 import ElevatorCar from "./assets/Modern_Elevator.glb";
 
 function Model({ onDoorToggle, currentView, ...props }) {
@@ -8,6 +8,14 @@ function Model({ onDoorToggle, currentView, ...props }) {
   const { actions } = useAnimations(animations, group);
   const [isOpen, setIsOpen] = useState(false);
   const [doorProgress, setDoorProgress] = useState(0);
+
+  // Get loading progress
+  const { progress } = useProgress();
+
+  // Log loading progress (optional)
+  React.useEffect(() => {
+    console.log(`Loading progress: ${progress}%`);
+  }, [progress]);
 
   // Function to toggle door state with animation
   const toggleDoor = () => {

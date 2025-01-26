@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, Suspense } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -11,6 +11,9 @@ import Room from "../components/Room/Room";
 import "../App.css";
 import ModernElevator from "../Modern_Elevator";
 import ElevatorControls from "../components/ElevatorControls";
+import Controls from "../components/Controls/Controls";
+import "../pages/Configurator.css";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 // Camera positions for different views
 const VIEW_CONFIGS = {
@@ -119,7 +122,7 @@ function CanvasContainer() {
   const toggleDoorRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [screenshotTools, setScreenshotTools] = useState(null);
-  const [currentView, setCurrentView] = useState("isometric");
+  const [currentView, setCurrentView] = useState("front");
 
   const handleDoorToggle = useCallback((toggleFn) => {
     toggleDoorRef.current = toggleFn;
@@ -168,43 +171,48 @@ function CanvasContainer() {
 
   return (
     <div id="canvas-container" ref={canvasRef}>
-      <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
-        <ScreenshotHandler onScreenshot={handleScreenshotTools} />
+      <Suspense fallback={<LoadingScreen />}>
+        <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
+          <ScreenshotHandler onScreenshot={handleScreenshotTools} />
 
-        <PerspectiveCamera makeDefault position={[0, 0, 4]} />
-        <CameraController view={currentView} />
+          <PerspectiveCamera makeDefault position={[0, 0, 4]} />
+          <CameraController view={currentView} />
 
-        {/* Lighting setup */}
-        <ambientLight intensity={0.7} />
-        <directionalLight
-          position={[2, 6, 8]}
-          intensity={0.8}
-          castShadow
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-        />
-
-        <Environment preset="lobby" background={false} />
-
-        {/* Room environment */}
-        <Room />
-
-        {/* Position elevator */}
-        <group position={[0, 3.5, -3]} scale={[4.4, 4, 4]}>
-          <ModernElevator
-            onDoorToggle={handleDoorToggle}
-            currentView={currentView}
+          {/* Lighting setup */}
+          <ambientLight intensity={0.7} />
+          <directionalLight
+            position={[2, 6, 8]}
+            intensity={0.8}
+            castShadow
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
           />
-        </group>
-      </Canvas>
 
-      <ElevatorControls
-        onOpenDoor={handleOpenDoor}
-        onCloseDoor={handleCloseDoor}
-        isDoorOpen={isOpen}
-        onTakeSnapshot={handleTakeSnapshot}
-        onViewChange={handleViewChange}
-      />
+          <Environment preset="lobby" background={false} />
+
+          {/* Room environment */}
+          <Room />
+
+          {/* Position elevator */}
+          <group position={[0, 3.5, -3]} scale={[4.4, 4, 4]}>
+            <ModernElevator
+              onDoorToggle={handleDoorToggle}
+              currentView={currentView}
+            />
+          </group>
+        </Canvas>
+
+        <div className="controls-section">
+          <Controls />
+        </div>
+        <ElevatorControls
+          onOpenDoor={handleOpenDoor}
+          onCloseDoor={handleCloseDoor}
+          isDoorOpen={isOpen}
+          onTakeSnapshot={handleTakeSnapshot}
+          onViewChange={handleViewChange}
+        />
+      </Suspense>
     </div>
   );
 }
