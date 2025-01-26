@@ -43,38 +43,57 @@ function Model(props) {
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="root">
             <group name="GLTF_SceneRootNode" rotation={[Math.PI / 2, 0, 0]}>
+              {/* Main Elevator Frame */}
               <group name="Cube_3">
                 <mesh
                   name="Object_6"
                   geometry={nodes.Object_6.geometry}
                   material={materials["Material.001"]}
-                />
+                />{" "}
+                {/* Main Frame Structure */}
                 <mesh
                   name="Object_7"
                   geometry={nodes.Object_7.geometry}
                   material={materials.Material}
-                />
+                />{" "}
+                {/* Interior Wall Panels */}
                 <mesh
                   name="Object_8"
                   geometry={nodes.Object_8.geometry}
                   material={materials["Material.004"]}
-                />
+                />{" "}
+                {/* Floor Panel */}
                 <mesh
                   name="Object_9"
                   geometry={nodes.Object_9.geometry}
                   material={materials["Material.009"]}
-                />
+                />{" "}
+                {/* Ceiling Panel */}
                 <mesh
                   name="Object_10"
                   geometry={nodes.Object_10.geometry}
                   material={materials["Material.010"]}
-                />
+                />{" "}
+                {/* Light Fixture */}
                 <mesh
                   name="Object_11"
                   geometry={nodes.Object_11.geometry}
                   material={materials["Material.011"]}
-                />
+                />{" "}
+                {/* Trim Details */}
+                <mesh
+                  name="BackWall"
+                  position={[0, 0, -0.625]}
+                  scale={[1.3, 1, 1]}
+                  material={materials["Material.011"]}
+                >
+                  <planeGeometry args={[1, 2]} />{" "}
+                  {/* Width and height to match elevator interior */}
+                </mesh>{" "}
+                {/* Back Wall Panel */}
               </group>
+
+              {/* Left Door Panel */}
               <group
                 name="Cube002_5"
                 position={[0, 0, -0.017]}
@@ -88,6 +107,8 @@ function Model(props) {
                   morphTargetInfluences={nodes.mesh_2.morphTargetInfluences}
                 />
               </group>
+
+              {/* Right Door Panel */}
               <group
                 name="Cube003_6"
                 position={[0, 0, -0.017]}
@@ -101,18 +122,24 @@ function Model(props) {
                   morphTargetInfluences={nodes.mesh_3.morphTargetInfluences}
                 />
               </group>
+
+              {/* Door Frame */}
               <group name="Cube004_7">
                 <mesh
                   name="Object_17"
                   geometry={nodes.Object_17.geometry}
                   material={materials["Material.001"]}
-                />
+                />{" "}
+                {/* Main Door Frame */}
                 <mesh
                   name="Object_18"
                   geometry={nodes.Object_18.geometry}
                   material={materials["Material.002"]}
-                />
+                />{" "}
+                {/* Door Frame Trim */}
               </group>
+
+              {/* Floor Number Display */}
               <group
                 name="Text_8"
                 position={[-0.187, 0.939, 0.63]}
@@ -124,6 +151,8 @@ function Model(props) {
                   material={materials["Material.003"]}
                 />
               </group>
+
+              {/* Control Panel Background */}
               <group
                 name="Plane_9"
                 position={[-0.187, 0.939, 0.63]}
@@ -133,13 +162,17 @@ function Model(props) {
                   name="Object_22"
                   geometry={nodes.Object_22.geometry}
                   material={materials["Material.005"]}
-                />
+                />{" "}
+                {/* Panel Base */}
                 <mesh
                   name="Object_23"
                   geometry={nodes.Object_23.geometry}
                   material={materials["Material.013"]}
-                />
+                />{" "}
+                {/* Panel Screen */}
               </group>
+
+              {/* Floor Buttons Panel */}
               <group
                 name="Plane001_10"
                 position={[-0.87, 0.092, 0.63]}
@@ -150,30 +183,39 @@ function Model(props) {
                   name="Object_25"
                   geometry={nodes.Object_25.geometry}
                   material={materials["Material.001"]}
-                />
+                />{" "}
+                {/* Button Panel Base */}
                 <mesh
                   name="Object_26"
                   geometry={nodes.Object_26.geometry}
                   material={materials["Material.007"]}
-                />
+                />{" "}
+                {/* Button Surrounds */}
                 <mesh
                   name="Object_27"
                   geometry={nodes.Object_27.geometry}
                   material={materials["Material.008"]}
-                />
+                />{" "}
+                {/* Button Faces */}
               </group>
+
+              {/* Door Track System */}
               <group name="Cube005_11" position={[0, 0, -0.017]}>
                 <mesh
                   name="Object_29"
                   geometry={nodes.Object_29.geometry}
                   material={materials["Material.001"]}
-                />
+                />{" "}
+                {/* Door Rails */}
                 <mesh
                   name="Object_30"
                   geometry={nodes.Object_30.geometry}
                   material={materials["Material.008"]}
-                />
+                />{" "}
+                {/* Rail Mechanisms */}
               </group>
+
+              {/* Left Door Interior Panel */}
               <group
                 name="Cube006_12"
                 position={[0, 0, -0.057]}
@@ -187,6 +229,8 @@ function Model(props) {
                   morphTargetInfluences={nodes.mesh_9.morphTargetInfluences}
                 />
               </group>
+
+              {/* Right Door Interior Panel */}
               <group
                 name="Cube007_13"
                 position={[0, 0, -0.057]}
@@ -200,6 +244,8 @@ function Model(props) {
                   morphTargetInfluences={nodes.mesh_10.morphTargetInfluences}
                 />
               </group>
+
+              {/* Emergency Information Panel */}
               <group name="Plane002_15" position={[0.374, -0.204, -0.028]}>
                 <mesh
                   name="Object_40"
