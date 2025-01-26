@@ -7,13 +7,44 @@ function Model(props) {
   const { nodes, materials, animations } = useGLTF(ElevatorCar);
   const { actions } = useAnimations(animations, group);
   const [isOpen, setIsOpen] = useState(false);
-  console.log({ animations });
-  // Function to toggle door state
+  const [doorProgress, setDoorProgress] = useState(0);
+
+  // Function to toggle door state with animation
   const toggleDoor = () => {
     setIsOpen(!isOpen);
+    console.log(`Door is now ${!isOpen ? "opening" : "closing"}`);
   };
 
-  // Handle door animations using morph targets
+  // Expose toggleDoor through props.onDoorToggle
+  useEffect(() => {
+    if (props.onDoorToggle) {
+      props.onDoorToggle(toggleDoor);
+    }
+  }, [props.onDoorToggle, toggleDoor]);
+
+  // Handle door animations using morph targets with smooth transition
+  useEffect(() => {
+    if (!isOpen && doorProgress === 0) return; // Skip initial animation when door is closed
+
+    const animationDuration = 2000; // 2 seconds for door animation
+    const fps = 60;
+    const frames = (animationDuration / 1000) * fps;
+    let frame = 0;
+
+    const animate = () => {
+      if (frame <= frames) {
+        const progress = isOpen ? frame / frames : 1 - frame / frames;
+        setDoorProgress(progress);
+        frame++;
+        setTimeout(animate, 1000 / fps);
+      }
+    };
+
+    frame = 0;
+    animate();
+  }, [isOpen]);
+
+  // Apply door progress to morph targets
   useEffect(() => {
     // Get all meshes that have morph targets for the door
     const doorMeshes = [
@@ -23,13 +54,13 @@ function Model(props) {
       nodes.mesh_10,
     ];
 
-    // Set morph target influence based on door state
+    // Set morph target influence based on door progress
     doorMeshes.forEach((mesh) => {
       if (mesh && mesh.morphTargetInfluences) {
-        mesh.morphTargetInfluences[0] = isOpen ? 1 : 0;
+        mesh.morphTargetInfluences[0] = doorProgress;
       }
     });
-  }, [isOpen, nodes]);
+  }, [doorProgress, nodes]);
 
   // Add click handler to the door meshes
   const handleDoorClick = (e) => {

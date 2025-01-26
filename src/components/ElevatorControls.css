@@ -1,0 +1,31 @@
+.elevator-controls {
+  position: absolute;
+  bottom: 10rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+.elevator-btn {
+  padding: 10px 20px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.elevator-btn:hover {
+  background-color: #34495e;
+}
+
+.snapshot-btn {
+  margin-left: 10px;
+  background-color: #4CAF50;
+}
+
+.snapshot-btn:hover {
+  background-color: #45a049;
+} 
