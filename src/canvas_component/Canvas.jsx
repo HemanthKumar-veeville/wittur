@@ -30,7 +30,7 @@ const VIEW_CONFIGS = {
   front: {
     position: [0, 1.5, 12],
     target: [0, 1.5, 0],
-    fov: 50,
+    fov: 55,
     controls: {
       minDistance: 8,
       maxDistance: 15,
@@ -54,12 +54,12 @@ const VIEW_CONFIGS = {
     },
   },
   scene: {
-    position: [15, 15, 15],
-    target: [0, 0, 0],
-    fov: 45,
+    position: [0, 1.5, 12],
+    target: [0, 1.5, 0],
+    fov: 65,
     controls: {
-      minDistance: 10,
-      maxDistance: 30,
+      minDistance: 5,
+      maxDistance: 15,
       minPolarAngle: 0,
       maxPolarAngle: Math.PI / 2,
       minAzimuthAngle: -Infinity,
