@@ -41,16 +41,16 @@ const VIEW_CONFIGS = {
     },
   },
   inside: {
-    position: [0, 1.6, -2],
-    target: [0, 1.6, -3],
-    fov: 70,
+    position: [0, 1.5, 12],
+    target: [0, 1.5, 0],
+    fov: 55,
     controls: {
-      minDistance: 0.5,
-      maxDistance: 2,
-      minPolarAngle: Math.PI / 2,
-      maxPolarAngle: Math.PI / 2,
-      minAzimuthAngle: -Math.PI / 4,
-      maxAzimuthAngle: Math.PI / 4,
+      minDistance: 5,
+      maxDistance: 15,
+      minPolarAngle: Math.PI / 2, // Set to PI/2 to prevent seeing above horizontal
+      maxPolarAngle: Math.PI / 2, // Set to PI/2 to prevent seeing below horizontal
+      minAzimuthAngle: -Math.PI / 6, // More restricted left rotation
+      maxAzimuthAngle: Math.PI / 6, // More restricted right rotation
     },
   },
   scene: {

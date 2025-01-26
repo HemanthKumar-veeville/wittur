@@ -100,12 +100,7 @@ function Model({ onDoorToggle, currentView, ...props }) {
   };
 
   return (
-    <group
-      ref={group}
-      {...props}
-      dispose={null}
-      visible={currentView !== "inside" || isOpen}
-    >
+    <group ref={group} {...props} dispose={null} visible={true}>
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="root">
