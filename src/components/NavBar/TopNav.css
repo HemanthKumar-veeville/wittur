@@ -1,0 +1,153 @@
+/* TopNav.css */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(
+        to right,
+        #000000,
+        #666666
+    );
+    color: white;
+    position: relative;
+    border-bottom: none !important; /* Remove any existing border */
+    margin-bottom: 0 !important;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-left: 6rem;
+}
+
+.logo {
+    height: 2rem;
+}
+
+.regional-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.dropdown-toggle:hover {
+    opacity: 0.8;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #222;
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    min-width: 120px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.dropdown-menu li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dropdown-menu li:hover {
+    background-color: #333;
+}
+
+.lang-currency {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.divider {
+    color: #666;
+}
+
+.currency-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.currency-btn:hover {
+    opacity: 0.8;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.nav-right a:hover {
+    opacity: 0.8;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input {
+    background-color: #333;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.search-container input:focus {
+    outline: none;
+    background-color: #444;
+}
+
+.search-btn {
+    position: absolute;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.search-icon {
+    width: 1rem;
+    height: 1rem;
+    fill: white;
+    transition: opacity 0.2s;
+}
+
+.search-btn:hover .search-icon {
+    opacity: 0.8;
+}
