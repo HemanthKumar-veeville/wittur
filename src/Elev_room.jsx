@@ -98,7 +98,7 @@ function ElevRoom(props) {
   const rightDoorInitialPos1 = -83.479; // Initial position of right door 1
   const doorGap = 0.1; // Small gap between doors when closed
   const animationSpeed = 0.015; // Reduced speed for smoother movement
-  const openDistance = 0.75; // How far each door should move when fully open
+  const openDistance = 1.5; // How far each door should move when fully open
 
   // Calculate the door movements
   const maxLeftTravel = -openDistance; // Left door moves left (negative)

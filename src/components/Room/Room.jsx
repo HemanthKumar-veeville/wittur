@@ -22,6 +22,20 @@ function Room() {
     );
   }, [floorTexture]);
 
+  // Configure the textures
+  const wallMaterial = useMemo(() => {
+    wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
+    wallTexture.repeat.set(18, 16); // Adjust these values to control the texture repeat
+    return (
+      <meshStandardMaterial
+        map={wallTexture}
+        roughness={0.6}
+        metalness={0.2}
+        color="#ffffff"
+      />
+    );
+  }, [wallTexture]);
+
   // Create wall materials using useMemo to prevent recreation on each render
   const { regularWallMaterial } = useMemo(() => {
     const createWallMaterial = () => {
@@ -105,42 +119,50 @@ function Room() {
           />
         </mesh>
 
-        {/* Back Wall with elevator opening as a single mesh */}
-        <mesh position={[0, 4, -6]}>
-          <planeGeometry args={[16, 8]} />
-          <meshStandardMaterial
-            color="#BDE6A8" // Pista green color
-            roughness={0.5}
-            metalness={0.1}
-          />
-        </mesh>
-
-        {/* Back Wall elevator frame */}
+        {/* Back Wall with elevator opening */}
         <group position={[0, 4, -6]}>
           {/* Left section */}
-          <mesh position={[-4.5, 0, 0]}>
-            <boxGeometry args={[7, 8, 0.1]} />
-            <meshStandardMaterial
-              color="#BDE6A8" // Pista green color
-              roughness={0.5}
-              metalness={0.1}
-            />
+          <mesh position={[-5.6, 0, 0]}>
+            <boxGeometry args={[4.7, 8, 0.3]} />
+            {wallMaterial}
           </mesh>
 
           {/* Right section */}
-          <mesh position={[4.5, 0, 0]}>
-            <boxGeometry args={[7, 8, 0.1]} />
+          <mesh position={[5.6, 0, 0]}>
+            <boxGeometry args={[4.7, 8, 0.3]} />
+            {wallMaterial}
+          </mesh>
+
+          {/* Top section */}
+          <mesh position={[0, 3, 0]}>
+            <boxGeometry args={[6.5, 8, 0.3]} />
+            {wallMaterial}
+          </mesh>
+
+          {/* Bottom section */}
+          <mesh position={[0, -3.9, 0]}>
+            <boxGeometry args={[6, 0.2, 0.3]} />
+            {wallMaterial}
+          </mesh>
+
+          {/* Left frame */}
+          <mesh position={[-3.4, -2.5, 0.05]}>
+            <boxGeometry args={[0.2, 3, 0.3]} />
             <meshStandardMaterial
-              color="#BDE6A8" // Pista green color
-              roughness={0.5}
-              metalness={0.1}
+              color="#a0a0a0"
+              roughness={0.3}
+              metalness={0.6}
             />
           </mesh>
 
-          {/* Top section commented out */}
-          <mesh position={[0, 2.5, 0]}>
-            <boxGeometry args={[2, 3, 0.1]} />
-            <primitive object={regularWallMaterial} />
+          {/* Right frame */}
+          <mesh position={[3.4, -2.5, 0.05]}>
+            <boxGeometry args={[0.2, 3, 0.3]} />
+            <meshStandardMaterial
+              color="#a0a0a0"
+              roughness={0.3}
+              metalness={0.6}
+            />
           </mesh>
         </group>
 

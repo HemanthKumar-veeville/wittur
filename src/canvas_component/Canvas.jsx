@@ -47,7 +47,7 @@ function CanvasContainer() {
         <Room />
 
         {/* Position elevator to fit perfectly in the back wall */}
-        <group position={[2, 0, 6.3]}>
+        <group position={[1.5, 0, 0.15]}>
           <ElevRoom />
         </group>
       </Canvas>
