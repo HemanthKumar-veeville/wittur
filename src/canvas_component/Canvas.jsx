@@ -12,6 +12,95 @@ import "../App.css";
 import ModernElevator from "../Modern_Elevator";
 import ElevatorControls from "../components/ElevatorControls";
 
+// Camera positions for different views
+const VIEW_CONFIGS = {
+  isometric: {
+    position: [8, 8, 8],
+    target: [0, 1.5, 0],
+    fov: 65,
+    controls: {
+      minDistance: 6,
+      maxDistance: 15,
+      minPolarAngle: Math.PI / 4,
+      maxPolarAngle: Math.PI / 2,
+      minAzimuthAngle: -Math.PI / 4,
+      maxAzimuthAngle: Math.PI / 4,
+    },
+  },
+  front: {
+    position: [0, 1.5, 12],
+    target: [0, 1.5, 0],
+    fov: 50,
+    controls: {
+      minDistance: 8,
+      maxDistance: 15,
+      minPolarAngle: Math.PI / 2,
+      maxPolarAngle: Math.PI / 2,
+      minAzimuthAngle: 0,
+      maxAzimuthAngle: 0,
+    },
+  },
+  inside: {
+    position: [0, 1.6, -2],
+    target: [0, 1.6, -3],
+    fov: 70,
+    controls: {
+      minDistance: 0.5,
+      maxDistance: 2,
+      minPolarAngle: Math.PI / 2,
+      maxPolarAngle: Math.PI / 2,
+      minAzimuthAngle: -Math.PI / 4,
+      maxAzimuthAngle: Math.PI / 4,
+    },
+  },
+  scene: {
+    position: [15, 15, 15],
+    target: [0, 0, 0],
+    fov: 45,
+    controls: {
+      minDistance: 10,
+      maxDistance: 30,
+      minPolarAngle: 0,
+      maxPolarAngle: Math.PI / 2,
+      minAzimuthAngle: -Infinity,
+      maxAzimuthAngle: Infinity,
+    },
+  },
+};
+
+// Camera Controller component
+function CameraController({ view, controls }) {
+  const { camera } = useThree();
+  const controlsRef = useRef();
+
+  React.useEffect(() => {
+    const config = VIEW_CONFIGS[view];
+    if (config) {
+      // Update camera position and target
+      camera.position.set(...config.position);
+      camera.fov = config.fov;
+      camera.updateProjectionMatrix();
+
+      // Update controls
+      if (controlsRef.current) {
+        controlsRef.current.target.set(...config.target);
+        Object.assign(controlsRef.current, config.controls);
+      }
+    }
+  }, [view, camera]);
+
+  return (
+    <OrbitControls
+      ref={controlsRef}
+      enableDamping
+      dampingFactor={0.05}
+      enableZoom={true}
+      enablePan={false}
+      enableRotate={true}
+    />
+  );
+}
+
 // Create a new component for handling screenshots
 function ScreenshotHandler({ onScreenshot }) {
   const { gl, scene, camera } = useThree();
@@ -30,6 +119,7 @@ function CanvasContainer() {
   const toggleDoorRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [screenshotTools, setScreenshotTools] = useState(null);
+  const [currentView, setCurrentView] = useState("isometric");
 
   const handleDoorToggle = useCallback((toggleFn) => {
     toggleDoorRef.current = toggleFn;
@@ -72,29 +162,19 @@ function CanvasContainer() {
     setScreenshotTools(tools);
   }, []);
 
+  const handleViewChange = (viewType) => {
+    setCurrentView(viewType);
+  };
+
   return (
     <div id="canvas-container" ref={canvasRef}>
       <Canvas shadows gl={{ preserveDrawingBuffer: true }}>
         <ScreenshotHandler onScreenshot={handleScreenshotTools} />
-        {/* Adjust camera to see elevator better */}
-        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={65} />
 
-        <OrbitControls
-          enableDamping
-          dampingFactor={0.05}
-          minDistance={6}
-          maxDistance={15}
-          target={[0, 1.5, 0]}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 2}
-          minAzimuthAngle={-Math.PI / 4}
-          maxAzimuthAngle={Math.PI / 4}
-          enableZoom={true}
-          enablePan={false}
-          enableRotate={true}
-        />
+        <PerspectiveCamera makeDefault position={[0, 0, 4]} />
+        <CameraController view={currentView} />
 
-        {/* Lighting setup for better visibility */}
+        {/* Lighting setup */}
         <ambientLight intensity={0.7} />
         <directionalLight
           position={[2, 6, 8]}
@@ -109,16 +189,21 @@ function CanvasContainer() {
         {/* Room environment */}
         <Room />
 
-        {/* Position elevator to fit perfectly in the back wall */}
+        {/* Position elevator */}
         <group position={[0, 3.5, -3]} scale={[4.4, 4, 4]}>
-          <ModernElevator onDoorToggle={handleDoorToggle} />
+          <ModernElevator
+            onDoorToggle={handleDoorToggle}
+            currentView={currentView}
+          />
         </group>
       </Canvas>
+
       <ElevatorControls
         onOpenDoor={handleOpenDoor}
         onCloseDoor={handleCloseDoor}
         isDoorOpen={isOpen}
         onTakeSnapshot={handleTakeSnapshot}
+        onViewChange={handleViewChange}
       />
     </div>
   );

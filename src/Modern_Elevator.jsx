@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import ElevatorCar from "./assets/Modern_Elevator.glb";
 
-function Model(props) {
+function Model({ onDoorToggle, currentView, ...props }) {
   const group = React.useRef();
   const { nodes, materials, animations } = useGLTF(ElevatorCar);
   const { actions } = useAnimations(animations, group);
@@ -17,10 +17,10 @@ function Model(props) {
 
   // Expose toggleDoor through props.onDoorToggle
   useEffect(() => {
-    if (props.onDoorToggle) {
-      props.onDoorToggle(toggleDoor);
+    if (onDoorToggle) {
+      onDoorToggle(toggleDoor);
     }
-  }, [props.onDoorToggle, toggleDoor]);
+  }, [onDoorToggle, toggleDoor]);
 
   // Handle door animations using morph targets with smooth transition
   useEffect(() => {
@@ -62,6 +62,37 @@ function Model(props) {
     });
   }, [doorProgress, nodes]);
 
+  // Handle visibility of different parts based on view
+  useEffect(() => {
+    const interiorParts = [
+      nodes.Object_7, // Interior Wall Panels
+      nodes.Object_8, // Floor Panel
+      nodes.Object_9, // Ceiling Panel
+      nodes.Object_10, // Light Fixture
+      nodes.BackWall, // Back Wall Panel
+    ];
+
+    // Show/hide interior elements based on view
+    interiorParts.forEach((part) => {
+      if (part) {
+        part.visible = currentView === "inside";
+      }
+    });
+
+    // Adjust material properties for different views
+    Object.values(materials).forEach((material) => {
+      if (material) {
+        if (currentView === "inside") {
+          material.transparent = true;
+          material.opacity = 0.8;
+        } else {
+          material.transparent = false;
+          material.opacity = 1;
+        }
+      }
+    });
+  }, [currentView, nodes, materials]);
+
   // Add click handler to the door meshes
   const handleDoorClick = (e) => {
     e.stopPropagation();
@@ -69,7 +100,12 @@ function Model(props) {
   };
 
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      visible={currentView !== "inside" || isOpen}
+    >
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="root">
@@ -125,11 +161,7 @@ function Model(props) {
               </group>
 
               {/* Left Door Panel */}
-              <group
-                name="Cube002_5"
-                position={[0, 0, -0.017]}
-                onClick={handleDoorClick}
-              >
+              <group name="Cube002_5" position={[0, 0, -0.017]}>
                 <mesh
                   name="mesh_2"
                   geometry={nodes.mesh_2.geometry}
@@ -140,11 +172,7 @@ function Model(props) {
               </group>
 
               {/* Right Door Panel */}
-              <group
-                name="Cube003_6"
-                position={[0, 0, -0.017]}
-                onClick={handleDoorClick}
-              >
+              <group name="Cube003_6" position={[0, 0, -0.017]}>
                 <mesh
                   name="mesh_3"
                   geometry={nodes.mesh_3.geometry}
