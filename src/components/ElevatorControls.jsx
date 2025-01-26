@@ -11,7 +11,7 @@ const ElevatorControls = ({
   onTakeSnapshot,
   onViewChange,
 }) => {
-  const [activeView, setActiveView] = useState("isometric");
+  const [activeView, setActiveView] = useState("front");
 
   const handleDoorToggle = () => {
     if (isDoorOpen) {

@@ -1,21 +1,94 @@
-import React, { useEffect, useState } from "react";
-import { useGLTF, useAnimations, useProgress } from "@react-three/drei";
+import React, { useEffect, useState, useMemo } from "react";
+import {
+  useGLTF,
+  useAnimations,
+  useProgress,
+  useTexture,
+} from "@react-three/drei";
+import * as THREE from "three";
 import ElevatorCar from "./assets/Modern_Elevator.glb";
+import { floorTextures } from "./constants/floorTextures";
+import { ceilingTextures } from "./constants/ceilingTextures";
 
-function Model({ onDoorToggle, currentView, ...props }) {
+// Preload all floor textures
+floorTextures.forEach((texture) => {
+  useTexture.preload(texture.src);
+});
+
+// Preload all ceiling textures
+ceilingTextures.forEach((texture) => {
+  useTexture.preload(texture.src);
+});
+
+function Model({
+  onDoorToggle,
+  currentView,
+  floorTexture,
+  ceilingTexture,
+  ...props
+}) {
   const group = React.useRef();
   const { nodes, materials, animations } = useGLTF(ElevatorCar);
   const { actions } = useAnimations(animations, group);
   const [isOpen, setIsOpen] = useState(false);
   const [doorProgress, setDoorProgress] = useState(0);
-
-  // Get loading progress
   const { progress } = useProgress();
 
-  // Log loading progress (optional)
+  // Create stable references for both materials
+  const floorMaterialRef = React.useRef();
+  const ceilingMaterialRef = React.useRef();
+
+  // Load textures
+  const floorMap = useTexture(floorTexture?.src || floorTextures[5].src);
+  const ceilingMap = useTexture(ceilingTexture?.src || ceilingTextures[0].src);
+
+  // Set texture properties
   React.useEffect(() => {
-    console.log(`Loading progress: ${progress}%`);
-  }, [progress]);
+    if (floorMap) {
+      floorMap.wrapS = floorMap.wrapT = THREE.RepeatWrapping;
+      floorMap.repeat.set(2, 2);
+      floorMap.needsUpdate = true;
+    }
+    if (ceilingMap) {
+      ceilingMap.wrapS = ceilingMap.wrapT = THREE.RepeatWrapping;
+      ceilingMap.needsUpdate = true;
+    }
+  }, [floorMap, ceilingMap]);
+
+  // Initialize materials
+  useMemo(() => {
+    if (
+      !floorMap ||
+      !ceilingMap ||
+      !materials["Material.010"] ||
+      !materials["Material.009"]
+    )
+      return;
+
+    // Floor material
+    if (!floorMaterialRef.current) {
+      floorMaterialRef.current = new THREE.MeshStandardMaterial({
+        map: floorMap,
+        metalness: 0.2,
+        roughness: 0.8,
+      });
+    } else {
+      floorMaterialRef.current.map = floorMap;
+      floorMaterialRef.current.needsUpdate = true;
+    }
+
+    // Ceiling material
+    if (!ceilingMaterialRef.current) {
+      ceilingMaterialRef.current = new THREE.MeshStandardMaterial({
+        map: ceilingMap,
+        metalness: 0.3,
+        roughness: 0.7,
+      });
+    } else {
+      ceilingMaterialRef.current.map = ceilingMap;
+      ceilingMaterialRef.current.needsUpdate = true;
+    }
+  }, [floorMap, ceilingMap, materials]);
 
   // Function to toggle door state with animation
   const toggleDoor = () => {
@@ -34,7 +107,7 @@ function Model({ onDoorToggle, currentView, ...props }) {
   useEffect(() => {
     if (!isOpen && doorProgress === 0) return; // Skip initial animation when door is closed
 
-    const animationDuration = 2000; // 2 seconds for door animation
+    const animationDuration = 800; // Changed from 2000 to 800ms (0.8 seconds)
     const fps = 60;
     const frames = (animationDuration / 1000) * fps;
     let frame = 0;
@@ -119,31 +192,35 @@ function Model({ onDoorToggle, currentView, ...props }) {
                   name="Object_6"
                   geometry={nodes.Object_6.geometry}
                   material={materials["Material.001"]}
-                />{" "}
+                />
                 {/* Main Frame Structure */}
                 <mesh
                   name="Object_7"
                   geometry={nodes.Object_7.geometry}
                   material={materials.Material}
-                />{" "}
+                />
                 {/* Interior Wall Panels */}
                 <mesh
                   name="Object_8"
                   geometry={nodes.Object_8.geometry}
                   material={materials["Material.004"]}
-                />{" "}
+                />
                 {/* Floor Panel */}
                 <mesh
                   name="Object_9"
                   geometry={nodes.Object_9.geometry}
-                  material={materials["Material.009"]}
-                />{" "}
+                  material={
+                    ceilingMaterialRef.current || materials["Material.009"]
+                  }
+                />
                 {/* Ceiling Panel */}
                 <mesh
                   name="Object_10"
                   geometry={nodes.Object_10.geometry}
-                  material={materials["Material.010"]}
-                />{" "}
+                  material={
+                    floorMaterialRef.current || materials["Material.010"]
+                  }
+                />
                 {/* Light Fixture */}
                 <mesh
                   name="Object_11"

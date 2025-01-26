@@ -3,9 +3,14 @@ import CollapsableDropDown from "./CollapsableDropDown";
 import ActionButtons from "./ActionButtons";
 import HeaderDropdown from "./HeaderDropdown";
 import TabButtons from "./TabButtons";
-import "./Controlls.css"; // Add this file for styles
+import "./Controls.css"; // Fixed typo in import
+import { floorTextures } from "../../constants/floorTextures";
 
-function Controls() {
+function Controls({
+  onTakeSnapshot,
+  onFloorTextureChange,
+  onCeilingTextureChange,
+}) {
   return (
     <div className="controls-sidebar">
       {/* Header Section */}
@@ -23,12 +28,15 @@ function Controls() {
 
         {/* Collapsible Dropdown Sections */}
         <div className="control-sections">
-          <CollapsableDropDown />
+          <CollapsableDropDown
+            onFloorTextureChange={onFloorTextureChange}
+            onCeilingTextureChange={onCeilingTextureChange}
+          />
         </div>
 
         {/* Footer Action Buttons */}
         <div className="controls-footer">
-          <ActionButtons />
+          <ActionButtons onTakeSnapshot={onTakeSnapshot} />
         </div>
       </div>
     </div>

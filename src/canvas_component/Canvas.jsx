@@ -14,6 +14,8 @@ import ElevatorControls from "../components/ElevatorControls";
 import Controls from "../components/Controls/Controls";
 import "../pages/Configurator.css";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import { floorTextures } from "../constants/floorTextures";
+import { ceilingTextures } from "../constants/ceilingTextures";
 
 // Camera positions for different views
 const VIEW_CONFIGS = {
@@ -123,6 +125,12 @@ function CanvasContainer() {
   const [isOpen, setIsOpen] = useState(false);
   const [screenshotTools, setScreenshotTools] = useState(null);
   const [currentView, setCurrentView] = useState("front");
+  const [currentFloorTexture, setCurrentFloorTexture] = useState(
+    floorTextures[0]
+  );
+  const [currentCeilingTexture, setCurrentCeilingTexture] = useState(
+    ceilingTextures[0]
+  );
 
   const handleDoorToggle = useCallback((toggleFn) => {
     toggleDoorRef.current = toggleFn;
@@ -169,6 +177,16 @@ function CanvasContainer() {
     setCurrentView(viewType);
   };
 
+  const handleFloorTextureChange = useCallback((texture) => {
+    console.log("Changing floor texture to:", texture);
+    setCurrentFloorTexture(texture);
+  }, []);
+
+  const handleCeilingTextureChange = useCallback((texture) => {
+    console.log("Changing ceiling texture to:", texture);
+    setCurrentCeilingTexture(texture);
+  }, []);
+
   return (
     <div id="canvas-container" ref={canvasRef}>
       <Suspense fallback={<LoadingScreen />}>
@@ -198,12 +216,18 @@ function CanvasContainer() {
             <ModernElevator
               onDoorToggle={handleDoorToggle}
               currentView={currentView}
+              floorTexture={currentFloorTexture}
+              ceilingTexture={currentCeilingTexture}
             />
           </group>
         </Canvas>
 
         <div className="controls-section">
-          <Controls />
+          <Controls
+            onTakeSnapshot={handleTakeSnapshot}
+            onFloorTextureChange={handleFloorTextureChange}
+            onCeilingTextureChange={handleCeilingTextureChange}
+          />
         </div>
         <ElevatorControls
           onOpenDoor={handleOpenDoor}

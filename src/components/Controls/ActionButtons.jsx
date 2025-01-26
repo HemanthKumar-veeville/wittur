@@ -2,12 +2,12 @@ import React from "react";
 import "./Controlls.css";
 import { FaCamera, FaCheck } from "react-icons/fa";
 
-const ActionButtons = () => {
+const ActionButtons = ({ onTakeSnapshot }) => {
   return (
     <div className="action-buttons-container">
       {/* Snapshot Button */}
       <div className="key-button">
-        <button className="action-button snapshot">
+        <button className="action-button snapshot" onClick={onTakeSnapshot}>
           <span className="button-text">SNAPSHOT</span>
         </button>
         <div className="icon-circle snapshot-icon">
