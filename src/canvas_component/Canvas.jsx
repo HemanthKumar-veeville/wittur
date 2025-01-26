@@ -14,7 +14,7 @@ function CanvasContainer() {
     <div id="canvas-container">
       <Canvas shadows>
         {/* Adjust camera to see elevator better */}
-        <PerspectiveCamera makeDefault position={[0, 2, 10]} fov={45} />
+        <PerspectiveCamera makeDefault position={[0, 0, 4]} fov={85} />
 
         <OrbitControls
           enableDamping
@@ -47,7 +47,7 @@ function CanvasContainer() {
         <Room />
 
         {/* Position elevator to fit perfectly in the back wall */}
-        <group position={[1.5, 0, 0.15]}>
+        <group position={[3.6, 0, 0.15]}>
           <ElevRoom />
         </group>
       </Canvas>

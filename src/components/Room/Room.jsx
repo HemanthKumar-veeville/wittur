@@ -3,11 +3,12 @@ import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 import floorTextureImg from "../../assets/textures/wood_tiles.jpg";
 import wallTextureImg from "../../assets/textures/steel.jpg";
+import roughWallTextureImg from "../../assets/textures/rough_wall.jpg";
 
 function Room() {
   // Load the floor texture
   const floorTexture = useLoader(THREE.TextureLoader, floorTextureImg);
-  const wallTexture = useLoader(THREE.TextureLoader, wallTextureImg);
+  const wallTexture = useLoader(THREE.TextureLoader, roughWallTextureImg);
 
   // Configure the textures
   const floorMaterial = useMemo(() => {
@@ -25,11 +26,11 @@ function Room() {
   // Configure the textures
   const wallMaterial = useMemo(() => {
     wallTexture.wrapS = wallTexture.wrapT = THREE.RepeatWrapping;
-    wallTexture.repeat.set(18, 16); // Adjust these values to control the texture repeat
+    wallTexture.repeat.set(2, 3); // Adjust these values to control the texture repeat
     return (
       <meshStandardMaterial
         map={wallTexture}
-        roughness={0.6}
+        roughness={10.8}
         metalness={0.2}
         color="#ffffff"
       />
@@ -120,51 +121,51 @@ function Room() {
         </mesh>
 
         {/* Back Wall with elevator opening */}
-        <group position={[0, 4, -6]}>
-          {/* Left section */}
-          <mesh position={[-5.6, 0, 0]}>
+        {/* <group position={[0, 4, -6]}> */}
+        {/* Left section */}
+        {/* <mesh position={[-5.6, 0, 0]}>
             <boxGeometry args={[4.7, 8, 0.3]} />
             {wallMaterial}
-          </mesh>
+          </mesh> */}
 
-          {/* Right section */}
-          <mesh position={[5.6, 0, 0]}>
+        {/* Right section */}
+        {/* <mesh position={[5.6, 0, 0]}>
             <boxGeometry args={[4.7, 8, 0.3]} />
             {wallMaterial}
-          </mesh>
+          </mesh> */}
 
-          {/* Top section */}
-          <mesh position={[0, 3, 0]}>
+        {/* Top section */}
+        {/* <mesh position={[0, 3, 0]}>
             <boxGeometry args={[6.5, 8, 0.3]} />
             {wallMaterial}
-          </mesh>
+          </mesh> */}
 
-          {/* Bottom section */}
-          <mesh position={[0, -3.9, 0]}>
+        {/* Bottom section */}
+        {/* <mesh position={[0, -3.9, 0]}>
             <boxGeometry args={[6, 0.2, 0.3]} />
             {wallMaterial}
-          </mesh>
+          </mesh> */}
 
-          {/* Left frame */}
-          <mesh position={[-3.4, -2.5, 0.05]}>
+        {/* Left frame */}
+        {/* <mesh position={[-3.4, -2.5, 0.05]}>
             <boxGeometry args={[0.2, 3, 0.3]} />
             <meshStandardMaterial
               color="#a0a0a0"
               roughness={0.3}
               metalness={0.6}
             />
-          </mesh>
+          </mesh> */}
 
-          {/* Right frame */}
-          <mesh position={[3.4, -2.5, 0.05]}>
+        {/* Right frame */}
+        {/* <mesh position={[3.4, -2.5, 0.05]}>
             <boxGeometry args={[0.2, 3, 0.3]} />
             <meshStandardMaterial
               color="#a0a0a0"
               roughness={0.3}
               metalness={0.6}
             />
-          </mesh>
-        </group>
+          </mesh> */}
+        {/* </group> */}
 
         {/* Ceiling */}
         <mesh position={[0, 8, 0]} receiveShadow>

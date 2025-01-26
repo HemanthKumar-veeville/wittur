@@ -1,0 +1,26 @@
+.bottom-navbar {
+    text-decoration: none !important;
+    color: white !important; /* Changed from aliceblue to white */
+    background-color: black;
+  }
+  
+  .bottom-nav-container {
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: white !important; /* Changed from aliceblue to white */
+  }
+  
+  /* Optional: Add styling for NavLinks */
+  .bottom-nav-container a {
+    color: white;
+    padding: 0.25rem;
+    font-size: 12px;
+    text-decoration: none;
+
+  }
+  
+  /* Optional: Add hover effects */
+  .bottom-nav-container a:hover {
+    opacity: 0.8;
+  }

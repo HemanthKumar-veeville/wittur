@@ -172,7 +172,13 @@ function ElevRoom(props) {
   }, [isOpen, isAnimating]);
 
   return (
-    <group ref={group} {...props} dispose={null} onClick={toggleDoors}>
+    <group
+      ref={group}
+      {...props}
+      dispose={null}
+      onClick={toggleDoors}
+      scale={[2.4, 2.8, 1]}
+    >
       <group name="Scene">
         <group
           name="Null"
