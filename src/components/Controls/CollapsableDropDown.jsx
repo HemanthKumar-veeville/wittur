@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Controlls.css"
+import "./Controlls.css";
 
 const CollapsableDropDown = () => {
   // State to manage the visibility of dropdowns
@@ -15,11 +15,11 @@ const CollapsableDropDown = () => {
     { label: "Dimensions", content: ["Option 1", "Option 2", "Option 3"] },
     { label: "Entrances", content: ["Option A", "Option B", "Option C"] },
     { label: "Car Wall", content: ["Choice 1", "Choice 2", "Choice 3"] },
-    { label: "Ceiling", content: ["Option X", "Option Y", "Option Z"] },
-    { label: "Floor", content: ["Option M", "Option N", "Option O"] },
-    { label: "Mirror", content: ["Option AA", "Option BB", "Option CC"] },
-    { label: "Handrails", content: ["Option Alpha", "Option Beta", "Option Gamma"] },
-    { label: "C.O.P", content: ["Option 101", "Option 102", "Option 103"] },
+    // { label: "Ceiling", content: ["Option X", "Option Y", "Option Z"] },
+    // { label: "Floor", content: ["Option M", "Option N", "Option O"] },
+    // { label: "Mirror", content: ["Option AA", "Option BB", "Option CC"] },
+    // { label: "Handrails", content: ["Option Alpha", "Option Beta", "Option Gamma"] },
+    // { label: "C.O.P", content: ["Option 101", "Option 102", "Option 103"] },
   ];
 
   return (

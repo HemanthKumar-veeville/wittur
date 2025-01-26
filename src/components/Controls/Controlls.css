@@ -11,7 +11,6 @@
     margin: 0 auto;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
-    height: 800px;
   }
   
   /* Header section */
@@ -46,7 +45,7 @@
   
   /* Collapsible Dropdown Section */
   .control-sections {
-    flex: 1;
+    /* flex: 1; */
     overflow-y: auto; /* Allows scrolling for long content */
     margin-bottom: 20px;
   }
